@@ -11,7 +11,7 @@ scientific accounting for the DeltaVerse.
 [![License: MIT](https://img.shields.io/badge/License-MIT-e3b25f?style=for-the-badge)](LICENSE)
 [![Solidity 0.8.24](https://img.shields.io/badge/Solidity-0.8.24-363636?style=for-the-badge&logo=solidity&logoColor=white)](Scientific.sol)
 [![EVM: cancun](https://img.shields.io/badge/EVM-cancun-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)](foundry.toml)
-[![Standard: cypherpunk4096](https://img.shields.io/badge/standard-cypherpunk4096-000000?style=for-the-badge)](#the-standard--cypherpunk4096)
+[![Standard: cypherpunk4096](https://img.shields.io/badge/standard-cypherpunk4096-000000?style=for-the-badge)](https://github.com/cypherpunk4096/standard)
 [![Zero imports](https://img.shields.io/badge/dependencies-zero-2ea44f?style=for-the-badge)](Scientific.sol)
 
 **One address, every chain**
