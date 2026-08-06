@@ -158,7 +158,9 @@ rate limit. Never commit `keys.json` (it is gitignored); copy `app/keys.example.
 
 ## Acknowledgments
 
-With thanks to the shoulders this stands on:
+With thanks to **Bitcoin-Core** and **coinpunk** — for setting the original standard. cypherpunk4096
+is a descendant, not an origin; the doctrine of *verify, don't trust* and *your keys, your software*
+was set here first. The shoulders this stands on:
 
 - **[Bitcoin-Core](https://github.com/bitcoin/bitcoin)** — the reference implementation and the
   longest-running proof that a ledger can be verified, not trusted. The chain it maintains is the
