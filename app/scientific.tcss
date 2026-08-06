@@ -1,0 +1,78 @@
+/* scientific.tcss — Textual CSS for the SCIENTIFIC terminal twin (the 8f2t hands⇄keyboard⇄protocol
+   TUI lane). Mirrors scientific.css for a Textual (Python TUI) ScientificPanel: same single-contract
+   handoff surface — live snapshot, verification loopback badges, ABI-driven read/write rows, and a
+   parsec-style transaction-history feed — rendered in the terminal. */
+
+Screen {
+  background: #0a0c10;
+  color: #d7e0ea;
+}
+
+#sci {
+  border: round #1d2530;
+  padding: 1 2;
+  width: 100%;
+  height: auto;
+}
+
+#sci-head {
+  height: 3;
+  border-bottom: solid #1d2530;
+  content-align: left middle;
+}
+#sci-head .symbol { color: #4ea1ff; }
+#sci-head .addr   { color: #7c8aa0; text-style: dim; }
+
+/* verification loopback badges */
+.badge        { padding: 0 1; }
+.badge.-ok    { color: #35d07f; }
+.badge.-bad   { color: #ff5d6c; text-style: bold; }
+.badge.-unknown { color: #c9a227; }
+
+#sci-snap {
+  layout: grid;
+  grid-size: 3;
+  grid-gutter: 1 1;
+  margin: 1 0;
+}
+.kv { border: round #1d2530; padding: 0 1; height: 3; }
+.kv .k { color: #7c8aa0; text-style: dim; }
+.kv .v { color: #d7e0ea; }
+
+.section-title { color: #7c8aa0; text-style: dim bold; margin: 1 0 0 0; }
+
+/* ABI-driven call rows */
+.call { height: 3; layout: horizontal; }
+.call .fn    { width: 18; color: #d7e0ea; }
+.call.-write .fn { color: #4ea1ff; }
+.call Input  { width: 1fr; background: #0a0c10; border: tall #1d2530; }
+.call Button { width: 10; background: #4ea1ff; color: #04121f; }
+.call.-read Button { background: #11151c; color: #4ea1ff; border: tall #1d2530; }
+.call .out   { color: #35d07f; }
+
+/* parsec-style transaction history */
+#sci-tx { height: auto; }
+#sci-tx ListView { border: round #1d2530; height: 12; }
+#sci-tx .method { color: #4ea1ff; width: 16; }
+#sci-tx .hash   { color: #d7e0ea; }
+#sci-tx .value  { color: #7c8aa0; }
+#sci-tx .row.-fail { color: #ff5d6c; }
+#sci-tx .empty  { color: #7c8aa0; content-align: center middle; }
+
+.error { color: #ff5d6c; border: round #ff5d6c 40%; padding: 0 1; margin: 1 0; }
+
+/* accordion — contain each deploy (Textual Collapsible per deploy) */
+#sci-deploys Collapsible { border: round #1d2530; margin-bottom: 1; }
+#sci-deploys Collapsible > CollapsibleTitle { color: #d7e0ea; background: #11151c; }
+#sci-deploys Collapsible.-open > CollapsibleTitle { color: #4ea1ff; }
+#sci-deploys Collapsible .addr { color: #7c8aa0; }
+#sci-deploys Collapsible .cid  { color: #7c8aa0; }
+
+/* collapsible section toggles (reads / writes / history) */
+.section Collapsible > CollapsibleTitle { color: #7c8aa0; text-style: dim bold; }
+.section Collapsible.-open > CollapsibleTitle { color: #d7e0ea; }
+.section .count { color: #7c8aa0; }
+
+/* the deploy anchor — genesis of the feedback loop (measured from SCIENTIFIC) */
+#sci-tx .row.-deploy { color: #4ea1ff; border-top: solid #4ea1ff; }
+#sci-tx .row.-deploy .origin { color: #7c8aa0; text-style: dim; }

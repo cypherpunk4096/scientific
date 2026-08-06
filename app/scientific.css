@@ -1,0 +1,72 @@
+/* scientific.css — web styling for scientific.tsx (the SCIENTIFIC single-contract handoff UI).
+   gut-4d / cypherpunk2048 dark surface; the verification loopback badges + parsec-style tx feed. */
+
+.sci {
+  --bg: #0a0c10; --panel: #11151c; --line: #1d2530; --fg: #d7e0ea; --dim: #7c8aa0;
+  --ok: #35d07f; --bad: #ff5d6c; --unknown: #c9a227; --accent: #4ea1ff; --mono: ui-monospace, "JetBrains Mono", monospace;
+  background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif;
+  border: 1px solid var(--line); border-radius: 12px; padding: 16px; max-width: 880px;
+}
+.sci-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.sci-head h2 { margin: 0; font-size: 18px; letter-spacing: .04em; }
+.sci-sym { color: var(--accent); }
+.sci-addr { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+.sci-refresh { margin-left: auto; background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+
+.sci-badges { display: inline-flex; gap: 6px; }
+.sci-badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); }
+.sci-badge.ok { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, var(--line)); }
+.sci-badge.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 40%, var(--line)); }
+.sci-badge.unknown { color: var(--unknown); }
+
+.sci-err { color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid color-mix(in srgb, var(--bad) 30%, var(--line)); border-radius: 8px; padding: 8px 10px; margin: 12px 0; font-family: var(--mono); font-size: 12px; }
+
+.sci-snap { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 14px 0; }
+.sci-kv { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.sci-kv .k { display: block; font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: .06em; }
+.sci-kv .val { font-size: 14px; word-break: break-all; }
+.sci-kv .val.mono { font-family: var(--mono); font-size: 12px; }
+
+.sci-calls h3, .sci-tx h3 { font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: .08em; margin: 14px 0 6px; }
+.sci-call { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 6px 0; border-bottom: 1px dashed var(--line); }
+.sci-call .fn { font-family: var(--mono); min-width: 130px; color: var(--fg); }
+.sci-call.write .fn { color: var(--accent); }
+.sci-call input { flex: 1; min-width: 120px; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; font-family: var(--mono); font-size: 12px; }
+.sci-call button { background: var(--accent); color: #04121f; border: none; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-weight: 600; }
+.sci-call.read button { background: transparent; color: var(--accent); border: 1px solid var(--line); }
+.sci-call .out { font-family: var(--mono); font-size: 12px; color: var(--ok); word-break: break-all; flex-basis: 100%; }
+
+.sci-txlist { list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: 12px; }
+.sci-txlist li { display: flex; gap: 10px; align-items: center; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+.sci-txlist li.fail { color: var(--bad); }
+.sci-txlist li .m { color: var(--accent); min-width: 110px; }
+.sci-txlist li .h { color: var(--fg); text-decoration: none; }
+.sci-txlist li .v { color: var(--dim); margin-left: auto; }
+.sci-txlist li time { color: var(--dim); }
+.sci-txlist li.empty { color: var(--dim); justify-content: center; }
+/* the deploy anchor — genesis of the feedback loop (measured from SCIENTIFIC) */
+.sci-txlist li.deploy { border-top: 1px solid var(--accent); color: var(--accent); }
+.sci-txlist li.deploy .origin { margin-left: auto; color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+
+/* ── accordion: contain each deploy ── */
+.sci-acc { display: flex; flex-direction: column; gap: 8px; }
+.sci-acc-item { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); }
+.sci-acc-item.open { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+.sci-acc-head { width: 100%; display: flex; align-items: center; gap: 10px; background: transparent; color: var(--fg); border: none; padding: 11px 14px; cursor: pointer; font-family: var(--mono); font-size: 13px; }
+.sci-acc-head:hover { background: rgba(78,161,255,.05); }
+.sci-acc-head .chev { color: var(--accent); width: 12px; }
+.sci-acc-head .lbl { font-weight: 600; }
+.sci-acc-head .addr { color: var(--dim); font-size: 11px; }
+.sci-acc-head .cid { margin-left: auto; color: var(--dim); font-size: 11px; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; }
+.sci-acc-body { border-top: 1px solid var(--line); padding: 6px; }
+.sci-acc-body .sci { border: none; padding: 10px; }
+
+/* ── collapsible section toggles (reads / writes / history) ── */
+.sci-section { border-top: 1px solid var(--line); }
+.sci-section:first-child { border-top: none; }
+.sci-toggle { width: 100%; display: flex; align-items: center; gap: 8px; background: transparent; color: var(--dim); border: none; padding: 9px 2px; cursor: pointer; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.sci-toggle:hover { color: var(--fg); }
+.sci-toggle .chev { color: var(--accent); }
+.sci-toggle .t { font-weight: 600; }
+.sci-toggle .n { margin-left: auto; color: var(--dim); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 0 7px; }
+.sci-section-body { padding: 4px 2px 10px; }

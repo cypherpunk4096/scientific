@@ -1,0 +1,23 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "Scientific.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.24;\n\n/**\n * SCIENTIFIC — the scifi concept mint (measure for accuracy → mint at scientific maximum).\n *\n * A self-contained ERC-20 (zero imports — airgap/offline-compileable) whose FIXED scientific\n * supply is the maximum representable value, 2^256-1, minted entirely to the bankon.eth OVERLORD\n * at construction. 18 decimals (cypherpunk2048 18-decimal accuracy, wei parity). No mint function:\n * the scientific maximum is reached at genesis — supply cannot grow.\n *\n *   decimals = 18 ; totalSupply = type(uint256).max = 2^256-1\n *\n * The scifi domain: the nGn oscilloscope (engine/ngn/oscilloscope.js) measures sound for accuracy at\n * 18 decimals and derives a uint256 voiceprint in this same domain. SCIENTIFIC is the OVERLORD's first\n * deploy (OVERLORD v1.10a). Privilege is BONA FIDE; this is the unit of scientific accounting.\n *\n * (c) 2026 BANKON / PYTHAI — MIT\n */\ncontract Scientific {\n    string public constant name = \"SCIEN\";\n    string public constant symbol = \"TIFIC\";\n    uint8  public constant decimals = 18;\n\n    // the scientific maximum — 2^256-1\n    uint256 public constant TOTAL_SUPPLY = type(uint256).max;\n\n    uint256 public totalSupply;\n    address public overlord; // bankon.eth — owner of all tokens initially\n\n    mapping(address => uint256) public balanceOf;\n    mapping(address => mapping(address => uint256)) public allowance;\n\n    event Transfer(address indexed from, address indexed to, uint256 value);\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n    event OverlordTransferred(address indexed from, address indexed to);\n\n    constructor(address overlord_) {\n        overlord = overlord_ == address(0) ? msg.sender : overlord_;\n        totalSupply = TOTAL_SUPPLY;\n        balanceOf[overlord] = TOTAL_SUPPLY; // minted entirely to the overlord — the scientific maximum\n        emit Transfer(address(0), overlord, TOTAL_SUPPLY);\n    }\n\n    function transfer(address to, uint256 value) external returns (bool) {\n        return _transfer(msg.sender, to, value);\n    }\n\n    function approve(address spender, uint256 value) external returns (bool) {\n        allowance[msg.sender][spender] = value;\n        emit Approval(msg.sender, spender, value);\n        return true;\n    }\n\n    function transferFrom(address from, address to, uint256 value) external returns (bool) {\n        uint256 a = allowance[from][msg.sender];\n        require(a >= value, \"TIFIC:allowance\");\n        if (a != type(uint256).max) allowance[from][msg.sender] = a - value;\n        return _transfer(from, to, value);\n    }\n\n    function _transfer(address from, address to, uint256 value) internal returns (bool) {\n        require(to != address(0), \"TIFIC:zero to\");\n        uint256 b = balanceOf[from];\n        require(b >= value, \"TIFIC:balance\");\n        // supply is conserved (= 2^256-1); no single balance can exceed the max → no overflow\n        unchecked { balanceOf[from] = b - value; balanceOf[to] += value; }\n        emit Transfer(from, to, value);\n        return true;\n    }\n\n    /// Hand the overlord role to a new owner (e.g. devolution to DAIO). Balances unaffected.\n    function transferOverlord(address to) external {\n        require(msg.sender == overlord, \"TIFIC:only overlord\");\n        emit OverlordTransferred(overlord, to);\n        overlord = to;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "cancun",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode"
+        ]
+      }
+    }
+  }
+}

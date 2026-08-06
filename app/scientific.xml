@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  scientific.xml — single-contract handoff manifest for SCIENTIFIC (the first-light canary).
+  The OVERLORD deploys ONE contract, hands it off, and this manifest binds the deployed address to
+  its interaction surface (scientific.abi) + the two-lane UI (scientific.js prototype /
+  scientific.ts·tsx production) + styles (scientific.css web / scientific.tcss terminal).
+  Live state, verification loopbacks, and transaction-history feedback are driven from chain RPC +
+  the block explorer, exactly as parsec/parsec-wallet surfaces them.
+-->
+<contract id="scientific" name="Scientific" tokenName="SCIEN" symbol="TIFIC" standard="ERC-20">
+  <suite>settlement-tokens</suite>
+  <pillar>settlement</pillar>
+  <stage>E1</stage>
+  <firstLight>true</firstLight>
+  <handoff mode="single-contract">
+    <note>OVERLORD deploys SCIENTIFIC alone (canary), proves the deploy→launch→register path,
+      then devolves the recognition handle via transferOverlord (e.g. to the DAIO).</note>
+  </handoff>
+
+  <!-- the .sol is the ROOT: it creates the abi (compile output) and is REQUIRED to verify the
+       deployed contract on the block explorer. canonical source = contracts-evm/scifi/Scientific.sol. -->
+  <source file="scientific.sol" canonical="contracts-evm/scifi/Scientific.sol"
+          compiler="solc-0.8.24" optimizer="200" evmVersion="cancun" creates="abi"/>
+  <verifyInput file="scientific.standard-input.json" target="etherscan|forge verify-contract"
+               note="Standard-JSON-Input — required to verify the deployed bytecode against the source."/>
+  <artifact file="scientific.json" derivedFrom="scientific.sol"/>
+  <abi src="scientific.abi" derivedFrom="scientific.sol" verify="etherscan|chain-rpc" loopback="true"/>
+
+  <constructor>
+    <arg name="overlord_" type="address" from="wallet"/>
+  </constructor>
+
+  <multichain method="create2" salt="deltaverse.scientific.v1" naming="ens" ensName="scientific.bankon.eth"/>
+
+  <!-- canonical deployed addresses are filled in at /live after LAUNCH; per-chain. -->
+  <deployments>
+    <deployment chain="ethereum"  chainId="1"     address="" explorer="https://etherscan.io"            verified="false"/>
+    <deployment chain="base"      chainId="8453"  address="" explorer="https://basescan.org"            verified="false"/>
+    <deployment chain="anvil"     chainId="31337" address="" explorer=""                                 verified="false"/>
+  </deployments>
+
+  <!-- the interaction surface — every input field of the deployed contract, grouped by intent.
+       Field order/types are AUTHORITATIVE from scientific.abi; this is the human/UI grouping. -->
+  <surface>
+    <reads>
+      <call fn="name"/>           <call fn="symbol"/>        <call fn="decimals"/>
+      <call fn="totalSupply"/>    <call fn="TOTAL_SUPPLY"/>  <call fn="overlord"/>
+      <call fn="balanceOf">       <field name="" type="address"/></call>
+      <call fn="allowance">       <field name="" type="address"/><field name="" type="address"/></call>
+    </reads>
+    <writes>
+      <call fn="transfer">        <field name="to" type="address"/><field name="value" type="uint256"/></call>
+      <call fn="approve">         <field name="spender" type="address"/><field name="value" type="uint256"/></call>
+      <call fn="transferFrom">    <field name="from" type="address"/><field name="to" type="address"/><field name="value" type="uint256"/></call>
+      <call fn="transferOverlord" governor="overlord"><field name="to" type="address"/></call>
+    </writes>
+    <events watch="true">
+      <event name="Transfer"/>    <event name="Approval"/>   <event name="OverlordTransferred"/>
+    </events>
+  </surface>
+
+  <ui>
+    <lane kind="prototype" file="scientific.js"  global="window.Scientific"/>
+    <lane kind="production" file="scientific.ts"/>
+    <component file="scientific.tsx" style="scientific.css"/>
+    <terminal  file="scientific.tcss"/>
+  </ui>
+
+  <verify>
+    <loopback name="is-live"          method="eth_getCode"     expect="non-empty"/>
+    <loopback name="source-verified"  method="explorer.verify(scientific.standard-input.json)" expect="bytecode matches scientific.sol"/>
+    <loopback name="abi-matches"      method="etherscan.getabi" expect="equals scientific.abi (compile output of scientific.sol)"/>
+    <loopback name="genesis-mint"     method="balanceOf(overlord)" expect="== totalSupply"/>
+    <txHistory source="etherscan|chain-rpc" feed="ui" style="parsec"/>
+  </verify>
+</contract>

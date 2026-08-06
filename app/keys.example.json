@@ -1,0 +1,7 @@
+{
+  "_note": "Copy to keys.json (gitignored). Or use env: DV_ETHERSCAN_KEY / DV_BLOCKSCOUT_KEY / DV_SOLANA_KEY / DV_SCANNER_KEY_<chainId>. Browser: stored in localStorage via the ApiKeyManager UI. A key is OPTIONAL — every call works on the public endpoint without one; the key only lifts the rate limit + unlocks endpoints.",
+  "etherscan": "",
+  "blockscout": "",
+  "solana": "",
+  "perChain": { "1": "", "8453": "" }
+}

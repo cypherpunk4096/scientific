@@ -1,0 +1,8 @@
+# secrets — never commit
+keys.json
+app/keys.json
+.env
+
+# foundry build output
+out/
+cache/
