@@ -95,6 +95,12 @@ full 18-decimal, wei-parity precision. A DeFi integration that reads price from 
 from the wall clock is guessing; reading kairos and chronos is measuring. SCIEN·TIFIC is the unit that
 measurement mints into.
 
+chronos.oracle also carries a **Moore's-law measure**, supplied by **kronos.agent**: historical time
+indexed not only in blocks and seconds but in the doubling of storage. We deploy at the threshold of the
+*age of the terabyte* — as of 2026 the Bitcoin blockchain has not yet crossed its first terabyte and is
+climbing toward it, its growth tracking Moore's law — so the protocol can read "where we are" as a
+timestamp against the doubling, not only against the wall.
+
 ## The standard — cypherpunk4096
 
 SCIEN·TIFIC was built to **cypherpunk2048** (2¹¹): write code, sovereignty over custody, consent over
@@ -107,6 +113,14 @@ the newly formed successor tier that doubles the bar:
   (see the table above), reproducible by anyone with the standard-input JSON in this repo.
 - **Precision without approximation** — 18-decimal accuracy carried at full width; rounding is a
   display decision, never a storage one.
+
+It stands on **[cypherpunk2048](https://github.com/cypherpunk2048)** (2¹¹) and is a strict superset —
+read the full standard, including the **non-compatibility statement** and the **list of software that is
+not accepted** (proxies, admin backdoors, CDN dependencies, closed-source bytecode, `(v,r,s)`-only
+signatures, non-deterministic deploys), at **[github.com/cypherpunk4096/standard](https://github.com/cypherpunk4096/standard)**.
+cypherpunk4096 also requires **quantum compliance** (signatures as `bytes`, scheme-migratable) — SCIEN·TIFIC
+carries no signature surface (the `overlord` gate is a plain `msg.sender` check), so it satisfies that
+commitment by construction.
 
 Production deployments are published to **[github.com/cypherpunk4096](https://github.com/cypherpunk4096)**
 as they go live. This repository is one of them.
