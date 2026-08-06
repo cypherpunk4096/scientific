@@ -8,6 +8,9 @@ A self-contained, zero-import ERC-20 whose fixed supply is the largest value the
 represent — `2²⁵⁶ − 1` — minted in full to the `bankon.eth` OVERLORD at genesis. The unit of
 scientific accounting for the DeltaVerse.
 
+**Built to the [cypherpunk4096 standard](https://github.com/cypherpunk4096/standard)** (2¹²) —
+determinism · zero dependencies · green-checkmark verification · precision · quantum compliance.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-e3b25f?style=for-the-badge)](LICENSE)
 [![Solidity 0.8.24](https://img.shields.io/badge/Solidity-0.8.24-363636?style=for-the-badge&logo=solidity&logoColor=white)](Scientific.sol)
 [![EVM: cancun](https://img.shields.io/badge/EVM-cancun-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)](foundry.toml)
@@ -152,6 +155,18 @@ app/                            the chain-aware interact/verify console (self-co
 
 An API key is **optional** everywhere — every read works on the public endpoint; a key only lifts the
 rate limit. Never commit `keys.json` (it is gitignored); copy `app/keys.example.json` or use env vars.
+
+## Acknowledgments
+
+With thanks to the shoulders this stands on:
+
+- **[Bitcoin-Core](https://github.com/bitcoin/bitcoin)** — the reference implementation and the
+  longest-running proof that a ledger can be verified, not trusted. The chain it maintains is the
+  clock behind the *age of the terabyte*, and its discipline — audit the source, run your own node,
+  don't trust, verify — is the discipline this repository carries into a green checkmark.
+- **[coinpunk](https://github.com/coinpunk/coinpunk)** — for the self-hosted, own-your-keys ethos:
+  software you run yourself, keys no one else holds. The cypherpunk line from a wallet you host to a
+  unit you can verify runs straight through it.
 
 ## License
 
