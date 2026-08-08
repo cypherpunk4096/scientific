@@ -159,8 +159,8 @@ rate limit. Never commit `keys.json` (it is gitignored); copy `app/keys.example.
 ## Acknowledgments
 
 With thanks to **Bitcoin-Core** and **coinpunk** — for setting the original standard. cypherpunk4096
-is a descendant, not an origin; the doctrine of *verify, don't trust* and *your keys, your software*
-was set here first. As we move forward — **exceeding** that standard, never discarding it — we do so on
+is a descendant, not an origin; the doctrine of *verify, don't trust* and *not your keys not your crypto* continuing the "code is law"
+defi movement with SCIEN TIFIC scifi accuracy. As we move forward — **exceeding** that standard — we do so on
 these shoulders:
 
 - **[Bitcoin-Core](https://github.com/bitcoin/bitcoin)** — the reference implementation and the
