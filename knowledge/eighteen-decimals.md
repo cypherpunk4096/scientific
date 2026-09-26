@@ -37,6 +37,14 @@ The rule:
 | derive ratios at 18dp with floor division (`(a * 10**18) // b`) | float division, then rounding |
 | label anything shortened for display | present a rounded number as the value |
 
+**Amounts vs. derived displays.** An *amount* — a balance, a reserve, a supply, a locked LP figure —
+is always exact: integers end to end. A *derived display* — a dollar quote at 6 decimals, a price in
+wei per LUV at 4 — may be computed in float64 only when the digits shown stay within its ~15
+significant digits, and it is labelled (≈, "at the pair's mid price", "display"). The luv.pythai.net
+card was corrected under this rule on 2026-09-26: it had shown balances through a float, so any
+holding above ~9 quadrillion LUV lost digits of its whole-LUV value; it now prints the whole and the
+18-digit fraction by integer division.
+
 Reference implementations: [chronos.oracle](https://github.com/cypherpunk2048/chronos.oracle)
 (`blocktime`, `luvprice`, `lockertime`, `financialtime` — Python and JS twins that agree to the last
 digit).
