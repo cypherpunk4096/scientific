@@ -104,6 +104,18 @@ indexed not only in blocks and seconds but in the doubling of storage. We deploy
 climbing toward it, its growth tracking Moore's law — so the protocol can read "where we are" as a
 timestamp against the doubling, not only against the wall.
 
+## Knowledge base — measured, not asserted
+
+[`knowledge/`](knowledge/) holds claims measured to full precision, each with its on-chain source and a
+command that reproduces it:
+
+- [**LUV maxed out Uniswap**](knowledge/uniswap-v2-maximum.md) — the SHAMBA LUV pair was seeded with
+  exactly 2¹¹² − 1 wei, the largest reserve a Uniswap V2 pair can store; SCIEN·TIFIC mints at 2²⁵⁶ − 1,
+  the largest value the EVM can represent. Measure the limit, then meet it exactly.
+- [**Eighteen decimals**](knowledge/eighteen-decimals.md) — why a `16` in RPC code is the hex radix,
+  and why a float is never allowed near wei.
+- [**time.locker**](knowledge/time-locker.md) — the LUV LP lock, measured by chronos.oracle.
+
 ## The standard — cypherpunk4096
 
 SCIEN·TIFIC was built to **cypherpunk2048** (2¹¹): write code, sovereignty over custody, consent over
@@ -151,6 +163,7 @@ scientific.abi                  the ABI
 scientific.standard-input.json  standard-JSON for explorer verification
 app/                            the chain-aware interact/verify console (self-contained, no CDN)
   index.html · scientific.js · scientific.css · apikeys.js · keys.example.json · README.md
+knowledge/                      measured claims: value at 18dp · on-chain source · reproduce command
 ```
 
 An API key is **optional** everywhere — every read works on the public endpoint; a key only lifts the
